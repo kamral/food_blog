@@ -1,0 +1,18 @@
+<!--загружаем tamplatetag,который мы назвали menu.py-->
+{% load menu %}
+   <header class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="logo">
+                            <h2><a href="{% url 'home' %}">Classic</a></h2>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+<!--                        чтобы отборазилось  header-меню,мы должны импортировать -->
+<!--                        функцию show_menu из файла menu.py-->
+                        {% show_menu %}
+                    </div>
+                </div>
+            </div>
+        </header>

@@ -1,0 +1,17 @@
+<!--мы перенесли из файла _header.html меню-->
+<!--вместо класса menu , мы напишем переменую menu_class, -->
+<!--которую мы создали в menu.py-->
+
+<div class="{{menu_class}}">
+    <ul>
+        <li><a href="{%url 'home'%}">Home</a></li>
+<!--       запускаем наше услови-->
+        {%for item in categories%}
+<!--        get_absolute_url-построит нашу ссылку-->
+        <li><a href="{{item.get_absolute_url}}">{{item.title}}</a></li>
+        {%endfor%}
+    </ul>
+</div>
+
+<!--сейчас мы должны зайтив в файл _header.html -->
+<!--и загрузить данный файл туда-->

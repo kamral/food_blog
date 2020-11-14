@@ -1,7 +1,7 @@
 from django.db import models
 from PIL import Image
 # Create your models here.
-
+from django.urls import reverse
 
 '''
 Category
@@ -30,11 +30,14 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('category',kwargs={"slug":self.slug})
 
     class Meta:
         verbose_name='Категория'
         verbose_name_plural='Категории'
         ordering=['title']
+
 
 class Tag(models.Model):
     title = models.CharField(max_length=255,
@@ -44,6 +47,9 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('tag', kwargs={"slug": self.slug})
 
     class Meta:
         verbose_name = 'Тег'
@@ -63,17 +69,20 @@ class Post(models.Model):
                                related_name='posts')
     tag=models.ManyToManyField(Tag,blank=True,related_name='posts')
 
+    def get_absolute_url(self):
+        return reverse('post', kwargs={"slug": self.slug})
+
 
 
     def save(self, *args, **kwargs):
         super(Post, self).save(*args, **kwargs)
         # Выбор картинки
-        img = Image.open(self.cover.path)
+        img = Image.open(self.photo.path)
         # Условие
         if img.height > 300 or img.width > 300:
             output_size = (300, 300)
             img.thumbnail(output_size)
-            img.save(self.cover.path)
+            img.save(self.photo.path)
 
 
     def __str__(self):

@@ -35,6 +35,13 @@
     padding: 0;
 }
 
+
+.grid .portfolio-item img{
+    width=100px
+    height:auto
+
+}
+
 .wrapper header.header .logo h2 a {
     color: #061e37;
     font-family: "Raleway", sans-serif;
