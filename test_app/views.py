@@ -12,5 +12,5 @@ def get_rubric(request):
     pass
 
 
- def get_absolute_url(self):
+def get_absolute_url(self):
         return reverse('rubric',kwargs={"pk":self.pk})

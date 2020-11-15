@@ -1,3 +1,4 @@
+from PIL.Image import Image
 from django.shortcuts import render
 from django.views.generic import ListView,DetailView
 # Create your views here.
@@ -8,7 +9,7 @@ class Home(ListView):
     model=Post
     template_name = 'blog/index.html'
     context_object_name = 'posts'
-    paginate_by = 1
+    paginate_by = 2
 
     def get_context_data(self, *, object_list=None, **kwargs):
         # вызовим родительский метод
@@ -20,7 +21,7 @@ class Home(ListView):
 class PostByCategory(ListView):
     template_name = 'blog/index.html'
     context_object_name = 'posts'
-    paginate_by = 1
+    paginate_by = 2
     # чтобы при запросе пустой категории было 404 ответ, а не 500
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -28,6 +29,8 @@ class PostByCategory(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = Category.objects.get(slug=self.kwargs['slug'])
         return context
+
+
 
     def get_queryset(self):
         return Post.objects.filter(category__slug=self.kwargs['slug'])
@@ -52,7 +55,7 @@ class GetPost(DetailView):
 class PostByTag(ListView):
     template_name = 'blog/index.html'
     context_object_name = 'posts'
-    paginate_by = 1
+    paginate_by = 2
     # чтобы при запросе пустой категории было 404 ответ, а не 500
     allow_empty = False
 
@@ -69,7 +72,7 @@ class PostByTag(ListView):
 class Search(ListView):
     template_name = 'blog/search.html'
     context_object_name = 'posts'
-    paginate_by = 1
+    paginate_by = 2
 
     def get_queryset(self):
         return Post.objects.filter(title__icontains=self.request.GET.get('s'))

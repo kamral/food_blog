@@ -72,8 +72,6 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('post', kwargs={"slug": self.slug})
 
-
-
     def save(self, *args, **kwargs):
         super(Post, self).save(*args, **kwargs)
         # Выбор картинки
@@ -83,7 +81,6 @@ class Post(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.photo.path)
-
 
     def __str__(self):
         return self.title
